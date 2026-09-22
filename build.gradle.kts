@@ -1,0 +1,7 @@
+// 루트 빌드 스크립트: 플러그인 버전 선언만 담당한다.
+// 실제 적용(apply)은 app/build.gradle.kts 에서 한다.
+plugins {
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.kotlin.android)      apply false
+    alias(libs.plugins.kotlin.compose)      apply false
+}
