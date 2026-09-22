@@ -20,8 +20,7 @@ class BiometricDetector : SafetyDetector {
             DetectionResult(
                 type = DetectorType.BIOMETRIC,
                 status = DetectionStatus.ALERT,
-                riskLevel = RiskLevel.HIGH,
-                reason = "심박수 비정상 (145 bpm)"
+                message = "비정상 심박수 감지 (145 bpm)"
             )
         )
     }

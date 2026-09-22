@@ -1,75 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!--
-    ====================================================================
-    현재 구현된 권한 (Mock 단계에서는 실제로 사용하지 않음)
-    ====================================================================
-    -->
-
-    <!--
-    낙상 감지 (FallDetector)
-    - 가속도 센서: 권한 불필요 (Android 공식 문서)
-      https://developer.android.com/guide/topics/sensors/sensors_overview#sensors-identify
-    - 백그라운드 동작 시 FOREGROUND_SERVICE 권한 필요 (추후 작업)
-    -->
-
-    <!--
-    생체신호 감지 (BiometricDetector — Galaxy Watch 연동)
-    - TODO: Samsung Health SDK 또는 Wear OS Data Layer API 사용 방식 확정 후 추가
-    - Wear OS Health Services 사용 시: 권한 확정 필요
-      https://developer.android.com/training/wearables/health-services
-    - 블루투스 경유 시 아래 BLUETOOTH 권한 필요
-    -->
-
-    <!--
-    비콘 감지 (BeaconDetector — BLE Scan)
-    - Android 12 이상: BLUETOOTH_SCAN 필요
-    - Android 11 이하: BLUETOOTH, BLUETOOTH_ADMIN, ACCESS_FINE_LOCATION 필요
-    - BLE 스캔에는 위치 권한이 필요할 수 있음 (Android 정책)
-      https://developer.android.com/guide/topics/connectivity/bluetooth/find-ble-devices
-    -->
-    <!-- TODO: 비콘 담당자가 실제 BLE 스캔 구현 시 아래 주석을 해제 -->
-    <!--
-    <uses-permission android:name="android.permission.BLUETOOTH_SCAN"
-        android:usesPermissionFlags="neverForLocation" />
-    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    -->
-
-    <!-- Foreground Service (백그라운드 감지 구현 시 추가) -->
-    <!--
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_HEALTH" />
-    -->
-
-    <!-- 인터넷 (서버 전송 구현 시 필요) -->
+    <!-- 서버로 HTTP 요청을 보내기 위한 권한 -->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
         android:label="@string/app_name"
         android:theme="@style/Theme.SafetyMonitor"
-        android:supportsRtl="true">
+        android:usesCleartextTraffic="true"> <!-- 로컬 http:// 통신 허용 -->
 
         <activity
             android:name=".MainActivity"
-            android:exported="true"
-            android:windowSoftInputMode="adjustResize">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <!--
-        TODO: 백그라운드 감지 구현 시 Foreground Service 선언 추가
-        <service
-            android:name=".service.SafetyMonitorService"
-            android:foregroundServiceType="health"
-            android:exported="false" />
-        -->
 
     </application>
 

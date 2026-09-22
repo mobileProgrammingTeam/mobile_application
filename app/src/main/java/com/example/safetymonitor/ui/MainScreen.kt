@@ -28,7 +28,7 @@ fun MainScreen(
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             Button(onClick = {
                 coordinator.startAll { result ->
-                    statusText = "[${result.type}] ${result.status} : ${result.reason}"
+                    statusText = "[${result.type}] ${result.status} : ${result.message}"
                 }
                 statusText = "모니터링 시작됨"
             }) {

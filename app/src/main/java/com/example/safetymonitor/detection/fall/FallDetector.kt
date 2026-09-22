@@ -20,8 +20,7 @@ class FallDetector : SafetyDetector {
             DetectionResult(
                 type = DetectorType.FALL,
                 status = DetectionStatus.ALERT,
-                riskLevel = RiskLevel.HIGH,
-                reason = "낙상 감지됨 (충격 발생)"
+                message = "낙상 감지됨 (급격한 충격)"
             )
         )
     }

@@ -20,8 +20,7 @@ class BeaconDetector : SafetyDetector {
             DetectionResult(
                 type = DetectorType.BEACON,
                 status = DetectionStatus.ALERT,
-                riskLevel = RiskLevel.HIGH,
-                reason = "위험구역 진입 (비콘 신호 감지)"
+                message = "위험구역 진입 감지 (비콘 ID: DANGER_01)"
             )
         )
     }
