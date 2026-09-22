@@ -3,24 +3,28 @@ package com.example.safetymonitor.detection.fall
 import com.example.safetymonitor.detection.*
 
 class FallDetector : SafetyDetector {
-    override val type = DetectorType.FALL
-    private var callback: ((DetectionResult) -> Unit)? = null
+    override val detectorType = DetectorType.FALL
+    private var listener: ((SafetyEvent) -> Unit)? = null
 
-    override fun start(onResult: (DetectionResult) -> Unit) {
-        this.callback = onResult
+    override fun setEventListener(listener: (SafetyEvent) -> Unit) {
+        this.listener = listener
+    }
+
+    override fun start() {
+        // TODO: 실제 가속도 센서 리스너 등록
     }
 
     override fun stop() {
-        this.callback = null
+        // TODO: 실제 가속도 센서 리스너 해제
     }
 
-    // 테스트용: 낙상 감지 이벤트 발생
+    // 테스트용 이벤트 발생 함수
     fun testTriggerAlert() {
-        callback?.invoke(
-            DetectionResult(
+        listener?.invoke(
+            SafetyEvent(
                 type = DetectorType.FALL,
                 status = DetectionStatus.ALERT,
-                message = "낙상 감지됨 (급격한 충격)"
+                message = "낙상 감지됨 (충격 발생)"
             )
         )
     }

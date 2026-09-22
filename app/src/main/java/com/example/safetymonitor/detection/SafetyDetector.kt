@@ -1,15 +1,15 @@
 package com.example.safetymonitor.detection
 
 /**
- * 감지기 공통 인터페이스.
- * Java의 public interface SafetyDetector { ... } 와 완전히 같습니다.
+ * 모든 감지 모듈이 구현해야 하는 공통 인터페이스 (팀 아키텍처 명세)
  */
 interface SafetyDetector {
-    val type: DetectorType
+    val detectorType: DetectorType
 
-    // 감지 시작 (결과가 나오면 onResult 콜백 함수를 실행)
-    fun start(onResult: (DetectionResult) -> Unit)
-
-    // 감지 중지
+    fun start()
     fun stop()
+
+    fun setEventListener(
+        listener: (SafetyEvent) -> Unit
+    )
 }

@@ -1,9 +1,12 @@
-package com.example.safetymonitor.detection.beacon
+package com.example.safetymonitor.detection.vital
 
 import com.example.safetymonitor.detection.*
 
-class BeaconDetector : SafetyDetector {
-    override val detectorType = DetectorType.BEACON
+/**
+ * 스마트워치 생체신호 감지 모듈 (심박수, SpO2 등)
+ */
+class VitalDetector : SafetyDetector {
+    override val detectorType = DetectorType.VITAL
     private var listener: ((SafetyEvent) -> Unit)? = null
 
     override fun setEventListener(listener: (SafetyEvent) -> Unit) {
@@ -11,20 +14,20 @@ class BeaconDetector : SafetyDetector {
     }
 
     override fun start() {
-        // TODO: BLE 비콘 스캔 시작
+        // TODO: 스마트워치 데이터 수신 시작
     }
 
     override fun stop() {
-        // TODO: BLE 비콘 스캔 중지
+        // TODO: 스마트워치 데이터 수신 중지
     }
 
     // 테스트용 이벤트 발생 함수
     fun testTriggerAlert() {
         listener?.invoke(
             SafetyEvent(
-                type = DetectorType.BEACON,
+                type = DetectorType.VITAL,
                 status = DetectionStatus.ALERT,
-                message = "위험구역 진입 감지 (비콘 신호 포착)"
+                message = "비정상 심박수 감지 (145 bpm)"
             )
         )
     }
