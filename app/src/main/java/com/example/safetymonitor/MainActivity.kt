@@ -15,7 +15,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         // 1. 세 감지기 객체 생성 (팀 아키텍처 명세)
-        val fall = FallDetector()
+        val fall = FallDetector(applicationContext)
         val vital = VitalDetector()
         val beacon = BeaconDetector()
 
