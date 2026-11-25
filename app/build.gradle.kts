@@ -14,6 +14,7 @@ android {
         targetSdk       = 35
         versionCode     = 1
         versionName     = "0.1.0-mvp"
+        testInstrumentationRunner = "com.example.safetymonitor.BackgroundMonitoringTestRunner"
     }
 
     buildTypes {
@@ -26,6 +27,16 @@ android {
         }
     }
 
+    // Both apps must use the same debug certificate. Keep the key outside Git.
+    providers.gradleProperty("pairDebugKeystore").orNull?.let { keyPath ->
+        signingConfigs.getByName("debug") {
+            storeFile = file(keyPath)
+            storePassword = "android"
+            keyAlias = "androiddebugkey"
+            keyPassword = "android"
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -35,10 +46,18 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
 dependencies {
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("com.google.android.gms:play-services-wearable:20.0.1")
+    constraints {
+        implementation("androidx.fragment:fragment:1.8.3") {
+            because("Play services must not introduce Fragment 1.1 with Activity Result APIs")
+        }
+    }
     // --- Compose (BOM으로 버전 일괄 관리) ---
     implementation(platform(libs.compose.bom))
     implementation(libs.compose.ui)
@@ -55,4 +74,8 @@ dependencies {
     // --- Coroutines ---
     // Flow 기반 비동기 감지 결과 전달에 사용
     implementation(libs.coroutines.android)
+
+    // --- Testing ---
+    testImplementation(libs.junit)
+    testImplementation("org.json:json:20240303") // Real JSON implementation for HTTP contract tests on the JVM.
 }
